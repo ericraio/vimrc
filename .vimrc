@@ -170,6 +170,7 @@ set relativenumber
 
 "clearing highlighted searches
 nmap <silent> <leader>/ :nohlsearch<CR>
+nmap <silent> <leader>hs :nohlsearch<CR>
 
 "SHORTCUTS
 " NERDTree mappings
@@ -182,3 +183,5 @@ nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
 
 let g:move_key_modifier = 'C'
+let g:ctrlp_max_depth = 40
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
