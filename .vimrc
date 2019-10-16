@@ -90,6 +90,7 @@ Plugin 'terryma/vim-multiple-cursors'
 Plugin 'thinca/vim-visualstar'
 Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'matze/vim-move'
+Plugin 'chr4/nginx.vim'
 
 "Other Plugins
 Plugin 'tpope/vim-pathogen'
