@@ -91,6 +91,7 @@ Plugin 'thinca/vim-visualstar'
 Plugin 'bronson/vim-trailing-whitespace'
 Plugin 'matze/vim-move'
 Plugin 'chr4/nginx.vim'
+Plugin 'spacewander/openresty-vim'
 
 "Other Plugins
 Plugin 'tpope/vim-pathogen'
