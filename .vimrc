@@ -52,6 +52,7 @@ Plugin 'tpope/vim-liquid'
 Plugin 'depuracao/vim-rdoc'
 Plugin 'mxw/vim-jsx'
 Plugin 'posva/vim-vue'
+Plugin 'vim-test/vim-test'
 
 " Tools
 Plugin 'tpope/vim-unimpaired'
