@@ -51,6 +51,7 @@ Plugin 'jnwhiteh/vim-golang'
 Plugin 'tpope/vim-liquid'
 Plugin 'depuracao/vim-rdoc'
 Plugin 'mxw/vim-jsx'
+Plugin 'posva/vim-vue'
 
 " Tools
 Plugin 'tpope/vim-unimpaired'
