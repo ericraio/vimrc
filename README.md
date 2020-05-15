@@ -2,4 +2,4 @@
 
 ## Language Servers
 * `:CocInstall coc-phpls`
-* `npm i -g sql-language-server bash-language-server`
+* `npm i -g sql-language-server bash-language-server javascript-typescript-langserver`
