@@ -1,4 +1,5 @@
 # vimrc
 
 ## Language Servers
-`npm i -g sql-language-server`
+`:CocInstall coc-phpls`
+`npm i -g sql-language-server bash-language-server`
