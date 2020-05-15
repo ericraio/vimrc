@@ -9,6 +9,14 @@
       "command": "sql-language-server",
       "args" : ["up", "--method", "stdio"],
       "filetypes": ["sql", "mysql"]
+     },
+     "intelephense": {
+       "command": "intelephense",
+       "args": ["--stdio"],
+       "filetypes": ["php"],
+       "initializationOptions": {
+         "storagePath": "/tmp/intelephense"
+       }
      }
   }
 }
