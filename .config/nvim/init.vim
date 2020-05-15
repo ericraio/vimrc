@@ -44,7 +44,7 @@ Plug 'StanAngeloff/php.vim'
 " Tools
 Plug 'tpope/vim-unimpaired'
 Plug 'scrooloose/nerdcommenter'
-Plug 'ervandew/supertab'
+Plug 'metalelf0/supertab'
 Plug 'itspriddle/ZoomWin'
 Plug 'thoughtbot/vim-rspec'
 Plug 'ericraio/vim-rspec2'
@@ -96,6 +96,9 @@ call plug#end()
 " -------------------------------------------------------------------------------------------------
 set relativenumber
 set nowrap
+set ts=2
+set sts=2
+set et     "expand tabs to spaces
 
 " quickly resize windows with a vertical split:
 :map - <C-W>-
