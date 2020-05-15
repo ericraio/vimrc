@@ -1,5 +1,9 @@
 {
   "languageserver": {
+    "javascript": {
+      "command": "javascript-typescript-langserver",
+      "filetypes": ["js", "ts"]
+    },
     "golang": {
       "command": "gopls",
       "rootPatterns": ["go.mod", ".vim/", ".git/", ".hg/"],
@@ -17,6 +21,17 @@
        "initializationOptions": {
          "storagePath": "/tmp/intelephense"
        }
-     }
+     },
+     "bash": {
+      "command": "bash-language-server",
+      "args": ["start"],
+      "filetypes": ["sh"],
+      "ignoredRootPaths": ["~"]
+    },
+    "dockerfile": {
+      "command": "docker-langserver",
+      "filetypes": ["dockerfile"],
+      "args": ["--stdio"]
+    }
   }
 }
