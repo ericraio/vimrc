@@ -119,6 +119,12 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
+" Move blocks of code up or down
+nnoremap <C-k>   :<C-u>silent! move-2<CR>==
+nnoremap <C-j> :<C-u>silent! move+<CR>==
+xnoremap <C-k>   :<C-u>silent! '<,'>move-2<CR>gv=gv
+xnoremap <C-j> :<C-u>silent! '<,'>move'>+<CR>gv=gv
+
 " TextEdit might fail if hidden is not set.
 set hidden
 
@@ -168,8 +174,13 @@ let g:airline_theme='simple'
 " -------------------------------------------------------------------------------------------------
 
 " Go
-let g:go_fmt_command = "goimports"    " Run goimports along gofmt on each save     
-let g:go_auto_type_info = 1           " Automatically get signature/type info for object under cursor     
+let g:go_fmt_command = "goimports"    " Run goimports along gofmt on each save
+let g:go_auto_type_info = 1           " Automatically get signature/type info for object under cursor
+let g:go_fmt_autosave = 1
+set rtp+=$GOPATH/src/golang.org/x/lint/misc/vim
+au BufWritePre,FileWritePre *.go :GoFmt
+autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
+
 
 " -------------------------------------------------------------------------------------------------
 " coc.nvim default settings
