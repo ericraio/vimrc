@@ -40,6 +40,7 @@ Plug 'mxw/vim-jsx'
 Plug 'posva/vim-vue'
 Plug 'vim-test/vim-test'
 Plug 'StanAngeloff/php.vim'
+Plug 'prettier/vim-prettier'
 
 " Tools
 Plug 'tpope/vim-unimpaired'
@@ -125,6 +126,12 @@ nnoremap <C-j> :<C-u>silent! move+<CR>==
 xnoremap <C-k>   :<C-u>silent! '<,'>move-2<CR>gv=gv
 xnoremap <C-j> :<C-u>silent! '<,'>move'>+<CR>gv=gv
 
+" Code folding
+set foldmethod=indent
+set foldnestmax=10
+set nofoldenable
+set foldlevel=2
+
 " TextEdit might fail if hidden is not set.
 set hidden
 
@@ -169,6 +176,9 @@ let NERDTreeShowHidden=1
 " airline
 let g:airline_theme='simple'
 
+" image
+autocmd BufEnter *.png,*.jpg,*gif exec "! ~/.iterm2/imgcat ".expand("%") | :bw
+
 " -------------------------------------------------------------------------------------------------
 " languages
 " -------------------------------------------------------------------------------------------------
@@ -180,6 +190,10 @@ let g:go_fmt_autosave = 1
 set rtp+=$GOPATH/src/golang.org/x/lint/misc/vim
 au BufWritePre,FileWritePre *.go :GoFmt
 autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
+
+" JavaScript
+au BufWritePre,FileWritePre *.js :PrettierAsync
+
 
 
 " -------------------------------------------------------------------------------------------------
