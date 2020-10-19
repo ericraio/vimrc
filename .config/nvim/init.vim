@@ -1,7 +1,5 @@
 call plug#begin('~/.vim/plugged')
 
-" < Other Plugins, if they exist >
-
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 " Colors
@@ -34,13 +32,16 @@ Plug 'guns/vim-clojure-static'
 Plug 'elixir-lang/vim-elixir'
 Plug 'jnwhiteh/vim-golang'
 Plug 'fatih/vim-go'
+Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-liquid'
 Plug 'depuracao/vim-rdoc'
 Plug 'mxw/vim-jsx'
 Plug 'posva/vim-vue'
+Plug 'mattn/emmet-vim'
 Plug 'vim-test/vim-test'
 Plug 'StanAngeloff/php.vim'
 Plug 'prettier/vim-prettier'
+Plug 'jparise/vim-graphql'
 
 " Tools
 Plug 'tpope/vim-unimpaired'
@@ -85,6 +86,7 @@ Plug 'spacewander/openresty-vim'
 Plug 'captbaritone/better-indent-support-for-php-with-html'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'sebdah/vim-delve'
 
 "Other Plugins
 Plug 'tpope/vim-pathogen'
@@ -179,6 +181,14 @@ let g:airline_theme='simple'
 " image
 autocmd BufEnter *.png,*.jpg,*gif exec "! ~/.iterm2/imgcat ".expand("%") | :bw
 
+" emmet
+let g:user_emmet_leader_key=','
+let g:user_emmet_settings = webapi#json#decode(join(readfile(expand('~/.config/nvim/.snippets.json')), "\n"))
+
+" Ctrl P
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+
+
 " -------------------------------------------------------------------------------------------------
 " languages
 " -------------------------------------------------------------------------------------------------
@@ -187,14 +197,35 @@ autocmd BufEnter *.png,*.jpg,*gif exec "! ~/.iterm2/imgcat ".expand("%") | :bw
 let g:go_fmt_command = "goimports"    " Run goimports along gofmt on each save
 let g:go_auto_type_info = 1           " Automatically get signature/type info for object under cursor
 let g:go_fmt_autosave = 1
+let g:go_metalinter_enabled = ['vet', 'unused', 'deadcode', 'gosimple', 'typecheck', 'structcheck', 'errcheck', 'staticcheck', 'ineffassign', 'godot', 'nakedret', 'misspell', 'dogsled', 'unparam', 'depguard']
 set rtp+=$GOPATH/src/golang.org/x/lint/misc/vim
 au BufWritePre,FileWritePre *.go :GoFmt
-autocmd BufWritePost,FileWritePost *.go execute 'Lint' | cwindow
+autocmd BufWritePost,FileWritePost *.go execute 'GoMetaLinter' | cwindow
+autocmd FileType go nnoremap <buffer> :A :GoAlternate<C-j>
+autocmd FileType go nmap <C-t> <Plug>(go-test)
+
+" run :GoBuild or :GoTestCompile based on the go file
+function! s:build_go_files()
+  let l:file = expand('%')
+  if l:file =~# '^\f\+_test\.go$'
+    call go#test#Test(0, 1)
+  elseif l:file =~# '^\f\+\.go$'
+    call go#cmd#Build(0)
+  endif
+endfunction
+
+autocmd FileType go nmap <C-b> :<C-u>call <SID>build_go_files()<CR>
 
 " JavaScript
-au BufWritePre,FileWritePre *.js :PrettierAsync
+au BufWritePre,FileWritePre *.js,*.jsx,*.vue :PrettierAsync
 
+" GraphQL
+au BufNewFile,BufRead *.prisma setfiletype graphql
 
+" -------------------------------------------------------------------------------------------------
+" tools
+" -------------------------------------------------------------------------------------------------
+let vim_markdown_preview_hotkey='<C-m>'
 
 " -------------------------------------------------------------------------------------------------
 " coc.nvim default settings
