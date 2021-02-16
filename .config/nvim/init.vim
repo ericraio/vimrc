@@ -8,6 +8,7 @@ Plug 'rafalbromirski/vim-aurora'
 " Languages
 Plug 'fatih/vim-go'
 Plug 'tpope/vim-haml'
+Plug 'stephpy/vim-yaml'
 Plug 'pangloss/vim-javascript'
 Plug 'tpope/vim-cucumber'
 Plug 'tpope/vim-markdown'
@@ -32,6 +33,7 @@ Plug 'guns/vim-clojure-static'
 Plug 'elixir-lang/vim-elixir'
 Plug 'jnwhiteh/vim-golang'
 Plug 'fatih/vim-go'
+Plug 'buoto/gotests-vim'
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'tpope/vim-liquid'
 Plug 'depuracao/vim-rdoc'
@@ -42,6 +44,7 @@ Plug 'vim-test/vim-test'
 Plug 'StanAngeloff/php.vim'
 Plug 'prettier/vim-prettier'
 Plug 'jparise/vim-graphql'
+Plug 'dsawardekar/wordpress'
 
 " Tools
 Plug 'tpope/vim-unimpaired'
@@ -181,6 +184,10 @@ let g:airline_theme='simple'
 " image
 autocmd BufEnter *.png,*.jpg,*gif exec "! ~/.iterm2/imgcat ".expand("%") | :bw
 
+" yaml
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+autocmd FileType yml setlocal ts=2 sts=2 sw=2 expandtab
+
 " emmet
 let g:user_emmet_leader_key=','
 let g:user_emmet_settings = webapi#json#decode(join(readfile(expand('~/.config/nvim/.snippets.json')), "\n"))
@@ -200,9 +207,23 @@ let g:go_fmt_autosave = 1
 let g:go_metalinter_enabled = ['vet', 'unused', 'deadcode', 'gosimple', 'typecheck', 'structcheck', 'errcheck', 'staticcheck', 'ineffassign', 'godot', 'nakedret', 'misspell', 'dogsled', 'unparam', 'depguard']
 set rtp+=$GOPATH/src/golang.org/x/lint/misc/vim
 au BufWritePre,FileWritePre *.go :GoFmt
-autocmd BufWritePost,FileWritePost *.go execute 'GoMetaLinter' | cwindow
 autocmd FileType go nnoremap <buffer> :A :GoAlternate<C-j>
 autocmd FileType go nmap <C-t> <Plug>(go-test)
+
+function FindSessionDirectory() abort
+  if len(argv()) > 0
+    return fnamemodify(argv()[0], ':p:h')
+  endif
+  return getcwd()
+endfunction!
+
+function GoLint()
+        if stridx(FindSessionDirectory(),"sol") < 0
+                autocmd BufWritePost,FileWritePost *.go execute 'GoMetaLinter' | cwindow
+        endif
+endfunction!
+
+call GoLint()
 
 " run :GoBuild or :GoTestCompile based on the go file
 function! s:build_go_files()
